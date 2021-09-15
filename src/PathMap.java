@@ -10,10 +10,11 @@ public class PathMap {
   public PathFindingOnSquaredGrid pathfinder;
   public Pose2d curPose;
   public Pose2d endPose;
-  public Pose2d[] Obstacles;
+  // public Pose2d[] Obstacles = new Pose2d[2];
+  public ArrayList<Pose2d> Obstacles = new ArrayList<>();
   public Node node;
   public boolean[][] matrix;
-  public double[] gridSize;
+  public double[] gridSize = new double[2];
   public int obstaclenum = 0;
   public int n;
   public int Ai;
@@ -27,14 +28,14 @@ public class PathMap {
   public void getPose(Pose2d startpoint, Pose2d endpoint) {
     curPose = startpoint;
     endPose = endpoint;
-    Ai = Math.toIntExact(Math.round((curPose.getTranslation().getX() - gridSize[0])/ 2.25));
-    Aj = Math.toIntExact(Math.round((curPose.getTranslation().getY() - gridSize[0]) / 4.5));
-    Bi = Math.toIntExact(Math.round((endPose.getTranslation().getX() - gridSize[0])/ 2.25));
-    Bj = Math.toIntExact(Math.round((endPose.getTranslation().getY() - gridSize[0])/ 4.5));
+    Ai = Math.toIntExact(Math.round(((curPose.getTranslation().getX())/ 2.25)*n));
+    Aj = Math.toIntExact(Math.round(((curPose.getTranslation().getY()) / 4.5)*n));
+    Bi = Math.toIntExact(Math.round(((endPose.getTranslation().getX())/ 2.25)*n));
+    Bj = Math.toIntExact(Math.round(((endPose.getTranslation().getY())/ 4.5)*n));
   }
 
   public void getObstacles(Pose2d Obstacle) {
-    Obstacles[obstaclenum] = Obstacle;
+    Obstacles.add(obstaclenum, Obstacle);
     obstaclenum++;
   }
 
@@ -42,27 +43,36 @@ public class PathMap {
     n = size;
     gridSize[1] = 4.5 / n;
     gridSize[0] = 2.25 / n;
+    matrix = new boolean[n][n];
   }
   
-  public void generateMap() {
+  public boolean[][] generateMap() {
     
-    for (int x = 0; x <= n; x++) {
-      for (int y = 0; y <= n; y++) {
+    for (int x = 0; x < n; x++) {
+      for (int y = 0; y < n; y++) {
         matrix[x][y] = true;
       }
     }
 
-    for (int i = 0; i <= Obstacles.length; i++) {
-      int x = Math.toIntExact(Math.round((Obstacles[i].getTranslation().getX() - gridSize[0])/ 2.25));
-      int y = Math.toIntExact(Math.round((Obstacles[i].getTranslation().getY() - gridSize[0]) / 4.5));
+    for (int i = 0; i < Obstacles.size(); i++) {
+      int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX()/ 2.25)*n));
+      int y = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getY() / 4.5)*n));
 
       //larger x boundary because rectangular grid boxes
-      for (int boundary = 0; boundary < 4; boundary++) {
-        matrix[x + boundary][y] = false;
-        matrix[x - boundary][y] = false;
+      for (int xboundary = 0; xboundary < n/10; xboundary++) {
+        // matrix[x + xboundary][y] = false;
+        // matrix[x - xboundary][y] = false;
+        for (int yboundary = 0; yboundary < n/30; yboundary++) {
+          matrix[x + xboundary][y + yboundary] = false;
+          matrix[x + xboundary][y - yboundary] = false;
+          matrix[x - xboundary][y + yboundary] = false;
+          matrix[x - xboundary][y - yboundary] = false;
+        }
       }
 
+
     }
+    return matrix;
   }
   
   public void calculate() {

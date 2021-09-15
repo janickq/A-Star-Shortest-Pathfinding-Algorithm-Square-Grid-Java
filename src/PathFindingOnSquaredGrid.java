@@ -13,6 +13,8 @@ public class PathFindingOnSquaredGrid {
     static ArrayList<Node> pathList = new ArrayList<>();
     static ArrayList<Node> closedList = new ArrayList<>();
     static boolean additionalPath = false;
+    static PathMap pathMap = new PathMap();
+    static Points points = new Points();
 
     // draw the N-by-N boolean matrix to standard draw
     public static void show(boolean[][] a, boolean which) {
@@ -100,28 +102,37 @@ public class PathFindingOnSquaredGrid {
         Scanner in = new Scanner(System.in);
         System.out.println("Please choose N(Grid Size): ");
         int n = in.nextInt();
-        System.out.println("Please choose Obstacle ratio: ");
-        double p = in.nextDouble();
+        // System.out.println("Please choose Obstacle ratio: ");
+        // double p = in.nextDouble();
         int gCost = 0;
         /*int fCost = 0;*/
+        pathMap.generateGrid(n);
+        pathMap.getPose(points.Pick, points.ballDrop);
+        pathMap.getObstacles(points.Bin);
+        pathMap.getObstacles(points.waypoint1);
 
         //Generating a new Boolean Matrix according to the input values of n and p (Length, Percolation value)
-        boolean[][] randomlyGenMatrix = random(n, p);
+        boolean[][] randomlyGenMatrix = pathMap.generateMap();
 
         //StdArrayIO.print(randomlyGenMatrix);
         show(randomlyGenMatrix, true);
 
         //Creation of a Node type 2D array
         cell = new Node[randomlyGenMatrix.length][randomlyGenMatrix.length];
+        
 
-        System.out.println("Enter y1: ");
-        int Ai = in.nextInt();
-        System.out.println("Enter x1: ");
-        int Aj = in.nextInt();
-        System.out.println("Enter y2: ");
-        int Bi = in.nextInt();
-        System.out.println("Enter x2: ");
-        int Bj = in.nextInt();
+        // System.out.println("Enter y1: ");
+        // int Ai = in.nextInt();
+        // System.out.println("Enter x1: ");
+        // int Aj = in.nextInt();
+        // System.out.println("Enter y2: ");
+        // int Bi = in.nextInt();
+        // System.out.println("Enter x2: ");
+        // int Bj = in.nextInt();
+        int Ai = pathMap.Ai;
+        int Aj = pathMap.Aj;
+        int Bi = pathMap.Bi;
+        int Bj = pathMap.Bj;
 
         show(randomlyGenMatrix, true, Ai, Aj, Bi, Bj);
 
