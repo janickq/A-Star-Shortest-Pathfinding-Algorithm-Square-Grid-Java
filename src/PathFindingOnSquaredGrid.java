@@ -74,7 +74,7 @@ public class PathFindingOnSquaredGrid {
      */
     public static void generateHValue(boolean matrix[][], int Ai, int Aj, int Bi, int Bj, int n, int v, int d,
             boolean additionalPath, int h) {
-
+        cell = new Node[matrix.length] [matrix.length];
         for (int y = 0; y < matrix.length; y++) {
             for (int x = 0; x < matrix.length; x++) {
                 // Creating a new Node object for each and every Cell of the Grid (Matrix)
@@ -127,7 +127,7 @@ public class PathFindingOnSquaredGrid {
         show(randomlyGenMatrix, true);
 
         // Creation of a Node type 2D array
-        cell = new Node[randomlyGenMatrix.length][randomlyGenMatrix.length];
+        // cell = new Node[randomlyGenMatrix.length][randomlyGenMatrix.length];
 
         // System.out.println("Enter y1: ");
         // int Ai = in.nextInt();
@@ -137,10 +137,10 @@ public class PathFindingOnSquaredGrid {
         // int Bi = in.nextInt();
         // System.out.println("Enter x2: ");
         // int Bj = in.nextInt();
-        int Ai = pathMap.Ai;
-        int Aj = pathMap.Aj;
-        int Bi = pathMap.Bi;
-        int Bj = pathMap.Bj;
+        int Bi = pathMap.Ai;
+        int Bj = pathMap.Aj;
+        int Ai = pathMap.Bi;
+        int Aj = pathMap.Bj;
 
         show(randomlyGenMatrix, true, Ai, Aj, Bi, Bj);
 
@@ -488,7 +488,17 @@ public class PathFindingOnSquaredGrid {
 
     public static void main(String[] args) {
 
-        menu();
-
+        // pathMap.generateGrid(100);
+        // pathMap.getPose(points.Pick, points.ballDrop);
+        // pathMap.getObstacles(points.Bin);
+        // pathMap.getObstacles(points.waypoint1);
+        // pathMap.generateMap();
+        // int gCost = 0;
+        // pathMap.calculate();
+        // pathMap.Reduce();
+        // for(int i = 0; i < pathMap.Path.size(); i++){
+        //     System.out.println("Pose"+i + ":" + pathMap.Path.get(i).toString());
+        // }
+            menu();
     }
 }

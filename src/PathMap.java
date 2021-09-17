@@ -27,9 +27,9 @@ public class PathMap {
   public void getPose(Pose2d startpoint, Pose2d endpoint) {
     curPose = startpoint;
     endPose = endpoint;
-    Ai = Math.toIntExact(Math.round(((curPose.getTranslation().getX()) / 4.5) * n));
+    Ai = Math.toIntExact(Math.round(((curPose.getTranslation().getX()) / 2.25) * n/2));
     Aj = Math.toIntExact(Math.round(((curPose.getTranslation().getY()) / 4.5) * n));
-    Bi = Math.toIntExact(Math.round(((endPose.getTranslation().getX()) / 4.5) * n));
+    Bi = Math.toIntExact(Math.round(((endPose.getTranslation().getX()) / 2.25) * n/2));
     Bj = Math.toIntExact(Math.round(((endPose.getTranslation().getY()) / 4.5) * n));
   }
 
@@ -55,11 +55,11 @@ public class PathMap {
     }
 
     for (int i = 0; i < Obstacles.size(); i++) {
-      int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 4.5) * n));
+      int x = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getX() / 2.25) * n/2));
       int y = Math.toIntExact(Math.round((Obstacles.get(i).getTranslation().getY() / 4.5) * n));
 
       // larger x boundary because rectangular grid boxes
-      for (int xboundary = 0; xboundary < n / 15; xboundary++) {
+      for (int xboundary = 0; xboundary < n / 30; xboundary++) {
         // matrix[x + xboundary][y] = false;
         // matrix[x - xboundary][y] = false;
         for (int yboundary = 0; yboundary < n / 30; yboundary++) {
