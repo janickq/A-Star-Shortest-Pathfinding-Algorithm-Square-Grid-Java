@@ -77,7 +77,8 @@ public class PathMap {
   public void calculate() {
 
     pathfinder.generateHValue(matrix, Ai, Aj, Bi, Bj, n, 10, 10, true, 3);
-    Collections.reverse(pathfinder.pathList);
+    if(curPose.getY()<endPose.getY())
+      Collections.reverse(pathfinder.pathList);
     for (int i = 0; i < pathfinder.pathList.size(); i++) {
       
       node = pathfinder.pathList.get(i);
